@@ -21,8 +21,7 @@ export class DialogExtension extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.sdk.window.updateHeight(window.outerHeight);
+  componentWillMount() {
     let imageIds = this.props.sdk.parameters.invocation.images.replace(/\s/g, '').split(',');
 
     const client = contentful.createClient({
@@ -30,19 +29,15 @@ export class DialogExtension extends React.Component {
       accessToken: this.props.sdk.parameters.installation.accessToken
     });
 
-    client
-      .getAssets({ imageIds })
-      .then(response => {
-        const images = response.items.map(image => {
-          return {
-            title: image.fields.title,
-            description: image.fields.description,
-            url: image.fields.file.url
-          };
-        });
-        this.setState({ images: images });
+    Promise.all(
+      imageIds.map(id => {
+        return client.getAsset(id).then(result => result);
       })
-      .catch(console.error);
+    ).then(result => this.setState({ images: result }));
+  }
+
+  componentDidMount() {
+    this.props.sdk.window.updateHeight(window.outerHeight);
   }
 
   render() {
@@ -54,16 +49,16 @@ export class DialogExtension extends React.Component {
           images.map((image, index) => {
             return (
               <div key={index} style={{ margin: tokens.spacingXl }} className="content-container">
-                <h3 style={{ fontFamily: tokens.fontStackPrimary, marginBottom: tokens.spacingM }}>
-                  {image.title}
+                <h3 style={{ fontFamily: tokens.fontStackPrimary, marginBottom: tokens.spacingS }}>
+                  {image.fields.title}
                 </h3>
-                {image.description && (
+                {image.fields.description && (
                   <p
                     style={{ fontFamily: tokens.fontStackPrimary, marginBottom: tokens.spacingXl }}>
-                    {image.description}
+                    {image.fields.description}
                   </p>
                 )}
-                <img src={image.url} alt="" />
+                <img src={image.fields.file.url} alt="" />
               </div>
             );
           })
