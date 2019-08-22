@@ -1,0 +1,30 @@
+{
+  "id": "reference-for-references",
+  "name": "A Reference for References",
+  "srcdoc": "./build/index.html",
+  "sidebar": true,
+  "parameters": {
+    "installation": [
+      {
+        "id": "accessToken",
+        "name": "Access Token",
+        "description": "Content Delivery API token for the space you are in, to retrieve the example images from contentful",
+        "type": "Symbol"
+      }
+    ],
+    "instance": [
+      {
+        "id": "images",
+        "name": "Images",
+        "description": "Comma-spearated list of ids for the example images you'd like to use",
+        "type": "Symbol"
+      },
+      {
+        "id": "fieldName",
+        "name": "Field Name",
+        "description": "The name of the field that you need the reference for",
+        "type": "Symbol"
+      }
+    ]
+  }
+}

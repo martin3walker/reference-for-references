@@ -1,0 +1,27 @@
+html,
+body,
+div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+img {
+  display: flex;
+  width: 100%;
+}
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content-container {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+}
+.list-item {
+  list-style: none;
+}
