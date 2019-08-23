@@ -63,7 +63,9 @@ export class DialogExtension extends React.Component {
             );
           })
         ) : (
-          <p>Fetching examples</p>
+          <p style={{ fontFamily: tokens.fontStackPrimary, marginTop: tokens.spacingXl }}>
+            Fetching examples
+          </p>
         )}
       </div>
     );
